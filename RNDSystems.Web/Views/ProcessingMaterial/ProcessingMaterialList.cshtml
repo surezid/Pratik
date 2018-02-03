@@ -1,0 +1,106 @@
+﻿@model RNDProcessing
+@{
+    ViewBag.Title = "ProcessingMaterialList";
+}
+
+<div class="panel-heading">Processing Material List</div>
+<div class="panel-body">
+    <div id="searchDiv" class="container">
+        <div class="row">
+            <div class="col-md-3 pull-right">
+                <button id="btnBack" onclick="window.history.back();" class="btn btn-primary btn-large"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+            </div>
+            <div class="col-md-3">
+                <button id="btnAddProcess" class="btn btn-success btn-large"><i class="fa fa-plus" aria-hidden="true"></i> Create New Process</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="searchWorkStudyNumber" class="cols-sm-2 control-label">Work Study Number</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-book" aria-hidden="true"></i></span>
+                        <input type="text" value="@Model.WorkStudyID" id="searchWorkStudyNumber" name="searchWorkStudyNumber" class="form-control" placeholder="Enter Work Study Number" />
+                        <input type="hidden" name="WorkStudyID" id="WorkStudyID" value="@Model.WorkStudyID" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="ddMillLotNo" class="cols-sm-2 control-label">Mill Lot Number</label>
+                <div class="cols-sm-10">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        @Html.DropDownList("ddMillLotNo", ViewBag.ddMillLotNo as IEnumerable<SelectListItem>, new { @class = "show-tick form-control", @id = "ddMillLotNo" })
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                 
+                    <div class="input-group">
+                        <input type="text" value="@Model.HTLogID" id="HTLogID" name="HTLogID" class="form-control" placeholder="HTLogID" />
+                        <span class="input-group-btn pull-left">
+                            <button id="btnNewHTGroup" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add new HTLoad to Group</button>
+                        </span>
+            </div>
+                </div>
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                    @Html.DropDownList("ddHTLogID", ViewBag.ddHTLogID as IEnumerable<SelectListItem>, new { @class = "show-tick form-control" })
+                    <span class="input-group-btn pull-left">
+                        <button id="btnHTGroup" class="btn btn-success btn-sm "><i class="fa fa-plus" aria-hidden="true"></i> Add existing HTLoad to Group</button>
+                    </span>
+                </div>
+            </div>
+             
+        </div>
+         
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="text" value="@Model.AgeLotID" id="AgeLotID" name="AgeLotID" class="form-control" placeholder="AgeLotID" />
+                        <span class="input-group-btn pull-left">
+                            <button id="btnNewAgeGroup" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>Add new Age to Group</button>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-search" aria-hidden="true"></i></span>
+                        @Html.DropDownList("ddAgeLotID", ViewBag.ddAgeLotID as IEnumerable<SelectListItem>, new { @class = "show-tick form-control" })
+                        <span class="input-group-btn pull-left">
+                            <button id="btnAgeGroup" class="btn btn-success btn-sm"><i class="fa fa-plus" aria-hidden="true"></i> Add existing Age to Group</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="" class="cols-sm-2 control-label"></label>
+                        <div class="cols-sm-10">
+                            <button id="btnSearch" class="btn btn-primary btn-large"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+                            &nbsp;&nbsp;&nbsp;
+                            <button id="btnClear" class="btn btn-primary btn-large"><i class="fa fa-times" aria-hidden="true"></i> Clear</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @{Html.RenderPartial("_Repeater", "ProcessingMaterialRepeater");}
+
+</div>
+@section scripts{
+    @Scripts.Render("~/bundles/ProcessingMaterial")
+    <script>
+        $(document).ready(function () {
+            LoadGrid("ProcessingMaterialRepeater");
+        });
+    </script>
+}
+
